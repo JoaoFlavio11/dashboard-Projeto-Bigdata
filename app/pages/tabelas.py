@@ -3,7 +3,11 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-st.set_page_config(layout="wide", page_icon=":bar_chart:", page_title="Gerenciamento de Estoque")
+st.set_page_config(
+    layout="wide",
+    page_icon=":bar_chart:", 
+    page_title="Tabelas do Estoque"
+)
 
 # Obter o caminho absoluto do diretório do script atual
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -26,10 +30,11 @@ for file in file_list:
         st.error(f"Arquivo não encontrado: {file_path}")
 
 # Layout da página
+st.title("Tabelas de Gerenciamento de Estoque")
 cols = st.columns(3)  # Três colunas para distribuir as tabelas
 
 # Exibir os primeiros registros de cada DataFrame com o nome do arquivo em colunas
 for i, (file, df) in enumerate(zip(file_list, df_list)):
     col = cols[i % 3]  # Alternar entre as colunas
-    col.markdown(f"## Tabela: {file}")
+    col.markdown(f"### Tabela: {file}")
     col.write(df.head())
