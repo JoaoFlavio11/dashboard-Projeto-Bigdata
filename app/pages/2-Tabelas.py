@@ -1,7 +1,6 @@
 import os
 import streamlit as st
 import pandas as pd
-import plotly.express as px
 
 st.set_page_config(
     layout="wide",
@@ -29,6 +28,17 @@ for file in file_list:
     except FileNotFoundError:
         st.error(f"Arquivo não encontrado: {file_path}")
 
+# Atribuir DataFrames a variáveis específicas para fácil acesso
+df_fornecedor = df_list[0]
+df_local = df_list[1]
+df_produto = df_list[2]
+df_tempo = df_list[3]
+df_financas = df_list[4]
+
+# Unir DataFrames para análises e gráficos
+df_financas_produto = pd.merge(df_financas, df_produto, on="cod_produto")
+df_financas_local = pd.merge(df_financas, df_local, on="cod_armazem")
+
 # Layout da página
 st.title("Tabelas de Gerenciamento de Estoque")
 cols = st.columns(3)  # Três colunas para distribuir as tabelas
@@ -38,3 +48,4 @@ for i, (file, df) in enumerate(zip(file_list, df_list)):
     col = cols[i % 3]  # Alternar entre as colunas
     col.markdown(f"### Tabela: {file}")
     col.write(df.head())
+

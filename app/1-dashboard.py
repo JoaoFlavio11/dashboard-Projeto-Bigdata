@@ -50,33 +50,33 @@ st.sidebar.subheader("Filtros")
 
 # Filtrar por produto
 selected_produto = st.sidebar.multiselect(
-    "Selecione o(s) produto(s)",
+    "Selecione o(s) produto(s) para remover",
     df_produto['descricao'].unique()
 )
 
 # Filtrar por armazém
 selected_armazem = st.sidebar.multiselect(
-    "Selecione o(s) armazém(ns)",
+    "Selecione o(s) armazém(ns) para remover",
     df_local['cidade'].unique()
 )
 
 # Filtrar por fornecedor
 selected_fornecedor = st.sidebar.multiselect(
-    "Selecione o(s) fornecedor(es)",
+    "Selecione o(s) fornecedor(es) para remover",
     df_fornecedor['nome_contato'].unique()
 )
 
 # Filtrar por mês
 selected_mes = st.sidebar.multiselect(
-    "Selecione o(s) mês(es)",
+    "Selecione o(s) mês(es) para remover",
     df_tempo['mes'].unique()
 )
 
 # Aplicar filtros
-filtered_df_produto = df_financas_produto[df_financas_produto['descricao'].isin(selected_produto)]
-filtered_df_local = df_financas_local[df_financas_local['cidade'].isin(selected_armazem)]
-filtered_df_fornecedor = df_financas_fornecedor[df_financas_fornecedor['nome_contato'].isin(selected_fornecedor)]
-filtered_df_tempo = df_financas_tempo[df_financas_tempo['mes'].isin(selected_mes)]
+filtered_df_produto = df_financas_produto[~df_financas_produto['descricao'].isin(selected_produto)]
+filtered_df_local = df_financas_local[~df_financas_local['cidade'].isin(selected_armazem)]
+filtered_df_fornecedor = df_financas_fornecedor[~df_financas_fornecedor['nome_contato'].isin(selected_fornecedor)]
+filtered_df_tempo = df_financas_tempo[~df_financas_tempo['mes'].isin(selected_mes)]
 
 # Gráficos
 
