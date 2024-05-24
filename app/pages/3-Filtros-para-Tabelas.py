@@ -2,69 +2,69 @@ import os
 import streamlit as st
 import pandas as pd
 
+#configurando a pãgina do streamlit
 st.set_page_config(
     layout="wide",
     page_icon=":bar_chart:", 
     page_title="Tabelas Filtradas do Estoque"
 )
 
-# Obter o caminho absoluto do diretório do script atual
+#caminho do diretório do código
 current_dir = os.path.dirname(os.path.abspath(__file__))
-# Defina o caminho relativo para o diretório onde os arquivos CSV estão localizados
+
+#caminho relativo para a pasta onde os .CSV estão "data"
 data_directory = os.path.join(current_dir, "..", "..", "data")
 
-# Lista com os nomes dos arquivos CSV
+#lista dos arquivos CSV
 file_list = ["dim_fornecedor.csv", "dim_local.csv", "dim_produto.csv", "dim_tempo.csv", "fato_financas.csv"]
 
-# Lista para armazenar os DataFrames
+#lista dos DataFrames
 df_list = []
 
-# Iterar sobre a lista de arquivos e ler cada um com a codificação apropriada
+#varrer a lista de arqiovos para ler cada arquivo
 for file in file_list:
     file_path = os.path.join(data_directory, file)
     try:
-        df = pd.read_csv(file_path, sep=";", decimal=".", encoding='latin1')  # Use 'latin1' ou 'iso-8859-1'
+        df = pd.read_csv(file_path, sep=";", decimal=".", encoding='latin1')  
         df_list.append(df)
     except FileNotFoundError:
         st.error(f"Arquivo não encontrado: {file_path}")
 
-# Atribuir DataFrames a variáveis específicas para fácil acesso
+#atribuir DataFrames a variáveis específicas para fácil acesso
 df_fornecedor = df_list[0]
 df_local = df_list[1]
 df_produto = df_list[2]
 df_tempo = df_list[3]
 df_financas = df_list[4]
 
-# Unir DataFrames para análises e gráficos
+#juntar os DataFrames (tabela fato + tabelas de dimesão) para análises e gráficos
 df_financas_produto = pd.merge(df_financas, df_produto, on="cod_produto")
 df_financas_local = pd.merge(df_financas, df_local, on="cod_armazem")
 
-# Filtros na sidebar
+#filtros na sidebar
 st.sidebar.subheader("Filtros")
 
-# Filtrar por produto
+#filtrar por produto
 selected_produto = st.sidebar.multiselect(
     "Selecione o(s) produto(s) para remover",
     df_produto['descricao'].unique()
 )
 
-# Filtrar por armazém
+#filtrar por armazém
 selected_armazem = st.sidebar.multiselect(
     "Selecione o(s) armazém(ns) para remover",
     df_local['cidade'].unique()
 )
 
-# Aplicar filtros
+#aplicar filtros
 filtered_df_produto = df_financas_produto[~df_financas_produto['descricao'].isin(selected_produto)]
 filtered_df_local = df_financas_local[~df_financas_local['cidade'].isin(selected_armazem)]
 
-# Melhorar a seção de dados filtrados
+#layout da página
 st.title("Dados Filtrados")
-
-# Distribuir os dados filtrados em colunas
 col1, col2 = st.columns(2)
 
-# Seção de produtos filtrados
+#tabela de produtos filtrados
 with col1:
     st.markdown("## Aplique o filtro na tabela: Produtos")
     if filtered_df_produto.empty:
@@ -74,7 +74,7 @@ with col1:
         with st.expander("Mostrar Resumo Estatístico dos Produtos Filtrados"):
             st.write(filtered_df_produto.describe())
 
-# Seção de armazéns filtrados
+#tabela de armazéns filtrados
 with col2:
     st.markdown("## Aplique o filtro na tabela: Armazéns")
     if filtered_df_local.empty:
