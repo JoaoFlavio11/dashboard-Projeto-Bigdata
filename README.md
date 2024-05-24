@@ -8,8 +8,8 @@
 
 ### Telas do aplicativo:
 #### Dashboard:
-    - Exibe um Dashboard com Gráficos de Indicadores, as informações dessa página podem ser filtradas de acordo com a necessidade do usuário.
+- Exibe um Dashboard com Gráficos de Indicadores, as informações dessa página podem ser filtradas de acordo com a necessidade do usuário.
 #### Tabelas: 
-    - Exibe as tabelas de dados que foram tratadas e que são usadas para a elaboração do Dashboard.
+- Exibe as tabelas de dados que foram tratadas e que são usadas para a elaboração do Dashboard.
 #### Filtros para Tabelas: 
-    - Exibe os filtros que podem ser aplicados nas tabelas de dados.
+- Exibe os filtros que podem ser aplicados nas tabelas de dados.
