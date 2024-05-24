@@ -25,3 +25,22 @@ Nesta página, os usuários podem aplicar filtros aos dados brutos para visualiz
   - **3-Filtros-para-Tabelas.py**: Código da 3ª página, que permite aos usuários aplicar filtros às tabelas de dados.
 - **data/**: Contém os arquivos CSV com os dados brutos do estoque, incluindo informações sobre fornecedores, locais, produtos, tempo e finanças.
 
+## Instruções de uso
+Para executar o aplicativo localmente, siga estas etapas:
+
+1. Clone o repositório para o seu ambiente local.
+2. Instale as dependências executando `pip install -r requirements.txt`.
+3. Navegue até o diretório do aplicativo usando o terminal.
+4. Execute o aplicativo com o comando `streamlit run app/1-dashboard.py`.
+5. O aplicativo será iniciado e você terá acesso a ele no seu navegador.
+
+## Licença
+Este projeto está licenciado sob a [Licença MIT](LICENSE) - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+## Conjunto de dados
+O conjunto de dados utilizado para o desenvolvimento do aplicativo é o Data Warehouse de um Supermercado fictício, usado apenas para fins educacionais.
+
+## Autores 
+Grupo: <João Flávio>, <André Izidio>, <Théo Gomes>, <Pedro Bastos>, <Allison França>, <Maria Clara Thomaz>.
+Dados: 
+Aplicativo: <João Flávio>.
