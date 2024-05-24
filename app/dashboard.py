@@ -42,11 +42,47 @@ df_financas_produto = pd.merge(df_financas, df_produto, on="cod_produto")
 df_financas_local = pd.merge(df_financas, df_local, on="cod_armazem")
 df_financas_fornecedor = pd.merge(df_financas, df_fornecedor, on="cod_fornecedor")
 
+# Layout da página
+st.title("Gráficos de Gerenciamento de Estoque")
+
+# Filtros na sidebar
+st.sidebar.subheader("Filtros")
+
+# Filtrar por produto
+selected_produto = st.sidebar.multiselect(
+    "Selecione o(s) produto(s)",
+    df_produto['descricao'].unique()
+)
+
+# Filtrar por armazém
+selected_armazem = st.sidebar.multiselect(
+    "Selecione o(s) armazém(ns)",
+    df_local['cidade'].unique()
+)
+
+# Filtrar por fornecedor
+selected_fornecedor = st.sidebar.multiselect(
+    "Selecione o(s) fornecedor(es)",
+    df_fornecedor['nome_contato'].unique()
+)
+
+# Filtrar por mês
+selected_mes = st.sidebar.multiselect(
+    "Selecione o(s) mês(es)",
+    df_tempo['mes'].unique()
+)
+
+# Aplicar filtros
+filtered_df_produto = df_financas_produto[df_financas_produto['descricao'].isin(selected_produto)]
+filtered_df_local = df_financas_local[df_financas_local['cidade'].isin(selected_armazem)]
+filtered_df_fornecedor = df_financas_fornecedor[df_financas_fornecedor['nome_contato'].isin(selected_fornecedor)]
+filtered_df_tempo = df_financas_tempo[df_financas_tempo['mes'].isin(selected_mes)]
+
 # Gráficos
 
 # Gráfico: Valor de entrada e saída por produto
 fig_produto = px.bar(
-    df_financas_produto,
+    filtered_df_produto,
     x="descricao", 
     y=["valor_entrada", "valor_saida"], 
     labels={"descricao": "Produto", "value": "Valor (R$)"}
@@ -54,7 +90,7 @@ fig_produto = px.bar(
 
 # Gráfico: Valor de entrada e saída por armazém
 fig_local = px.bar(
-    df_financas_local, 
+    filtered_df_local, 
     x="cidade", 
     y=["valor_entrada", "valor_saida"],
     labels={"cidade": "Cidade", "value": "Valor (R$)"}
@@ -62,7 +98,7 @@ fig_local = px.bar(
 
 # Gráfico de barras: Valor de entrada e saída por fornecedor
 fig_fornecedor = px.bar(
-    df_financas_fornecedor, 
+    filtered_df_fornecedor, 
     x="nome_contato", 
     y=["valor_entrada", "valor_saida"],
     labels={"nome_contato": "Fornecedor", "value": "Valor (R$)"}
@@ -70,15 +106,12 @@ fig_fornecedor = px.bar(
 
 # Gráfico de linha: Valor de entrada e saída ao longo do tempo
 fig_tempo = px.line(
-    df_financas_tempo,
+    filtered_df_tempo,
     x="dia",
     y=["valor_entrada", "valor_saida"], 
     color="mes", 
     labels={"dia": "Dia", "value": "Valor (R$)", "mes": "Mês"}
 )
-
-# Layout da página
-st.title("Gráficos de Gerenciamento de Estoque")
 
 # Exibir gráficos
 col1, col2 = st.columns(2)
