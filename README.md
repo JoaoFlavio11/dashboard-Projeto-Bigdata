@@ -41,9 +41,11 @@ Este projeto está licenciado sob a [Licença MIT](LICENSE) - veja o arquivo [LI
 O conjunto de dados utilizado para o desenvolvimento do aplicativo é o Data Warehouse de um Supermercado fictício, usado apenas para fins educacionais.
 
 ## Autores 
-#### Grupo: João Flávio, André Izidio, Théo Gomes, Pedro Bastos, Allison França, Maria Clara Thomaz.
+#### Grupo: 
+ - **João Flávio, André Izidio, Théo Gomes, Pedro Bastos, Allison França, Maria Clara Thomaz.**
 
-#### Aplicativo: João Flávio.
+#### Aplicativo: 
+ - **João Flávio.**
 
 #### Dados: 
  
